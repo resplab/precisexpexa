@@ -1,0 +1,25 @@
+Package: precisexpexa
+Title: Server-Side Pexa Wrapper for the PRECISE-X Model
+Version: 0.0.0.9000
+Authors@R: person("Mohsen", "Sadatsafavi", email = "mohsen.sadatsafavi@ubc.ca", role = c("aut", "cre", "cph"))
+Description: Hosts the PRECISE-X model on the Pexa cloud modelling platform.
+    Provides the entry points the Pexa executor invokes (default input,
+    input validation, and model execution), translating between the Pexa
+    call contract and the core PRECISE-X functions.
+Depends: R (>= 3.6.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/resplab/precisexpexa
+BugReports: https://github.com/resplab/precisexpexa/issues
+Imports:
+    ggplot2,
+    utils
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
+RoxygenNote: 7.3.3

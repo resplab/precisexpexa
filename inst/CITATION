@@ -1,0 +1,22 @@
+citHeader("To cite the PRECISE-X model in publications, please use:")
+
+bibentry(
+  bibtype = "Article",
+  title   = "Development and validation of PRECISE-X model: predicting first severe exacerbation in COPD",
+  author  = c(
+    person("Mohsen", "Sadatsafavi"),
+    person("Marc", "Miravitlles"),
+    person(c("Jennifer", "K"), "Quint"),
+    person("Valeria", "Perugini"),
+    person("Hamid", "Tavakoli"),
+    person(c("Joseph", "Emil"), "Amegadzie"),
+    person("Bernardino", "Alcazar Navarrete")
+  ),
+  journal = "Thorax",
+  year    = "2026",
+  volume  = "81",
+  number  = "6",
+  pages   = "541--547",
+  doi     = "10.1136/thorax-2025-223770",
+  url     = "https://thorax.bmj.com/content/81/6/541"
+)
