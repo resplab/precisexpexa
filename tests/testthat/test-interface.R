@@ -45,6 +45,20 @@ test_that("model_run accepts a data frame and returns one row per patient", {
   expect_true(all(paste("Year", 1:5) %in% names(res)))
 })
 
+test_that("model_run accepts the column-oriented list the client sends for a df", {
+  # modelscloud transmits a data frame as as.list(df) (a column-oriented list);
+  # this must be treated as a batch, not a single patient.
+  col_list <- list(female = c(1, 0), age = c(55, 70), mrc = c(5, 2), fev1 = c(1.5, 2.2))
+  res_list <- model_run(col_list, plot = FALSE)
+  res_df <- model_run(
+    data.frame(female = c(1, 0), age = c(55, 70), mrc = c(5, 2), fev1 = c(1.5, 2.2)),
+    plot = FALSE
+  )
+  expect_equal(nrow(res_list), 2)
+  expect_false(anyNA(res_list))
+  expect_equal(res_list, res_df)
+})
+
 test_that("model_run isolates per-row failures as NA with a warning", {
   df <- data.frame(
     female = c(1, 0),

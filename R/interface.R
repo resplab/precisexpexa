@@ -86,19 +86,24 @@ model_run <- function(model_input = NULL, plot = TRUE) {
     model_input <- get_default_input()
   }
 
-  # Normalise the input to a list of per-patient named vectors.
+  # Normalise the input to a data frame, then to per-patient named vectors.
+  # A named list may be a single patient (scalar elements) or a column-oriented
+  # batch (equal-length vector elements) — the latter is how the modelscloud
+  # client transmits a data frame (via as.list()). as.data.frame() unifies both:
+  # one row for scalars, N rows for equal-length vectors.
   if (is.data.frame(model_input)) {
-    input_names <- names(model_input)
-    patients <- lapply(
-      seq_len(nrow(model_input)),
-      function(i) unlist(model_input[i, , drop = FALSE])
-    )
+    df <- model_input
   } else if (is.list(model_input)) {
-    input_names <- names(model_input)
-    patients <- list(unlist(model_input))
+    df <- as.data.frame(model_input, stringsAsFactors = FALSE)
   } else {
     stop("model_input must be a named list or a data frame.", call. = FALSE)
   }
+
+  input_names <- names(df)
+  patients <- lapply(
+    seq_len(nrow(df)),
+    function(i) unlist(df[i, , drop = FALSE])
+  )
 
   # Reject any key that is not a legitimate predictor (fev1pp is an accepted
   # alternative to fev1).
