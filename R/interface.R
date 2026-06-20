@@ -23,10 +23,10 @@
 #' @export
 get_sample_input <- function() {
   list(
-    female  = 1,
-    age     = 55,
-    mrc     = 5,
-    fev1pp  = 0.95,
+    female = 1,
+    age = 55,
+    mrc = 5,
+    fev1pp = 0.95,
     anxiety = 0
   )
 }
@@ -45,9 +45,9 @@ get_sample_input <- function() {
 get_default_input <- function() {
   list(
     female = 1,
-    age    = 65,
-    mrc    = 2,
-    fev1   = 1.5
+    age = 65,
+    mrc = 2,
+    fev1 = 1.5
   )
 }
 
@@ -81,7 +81,7 @@ get_default_input <- function() {
 #'
 #' @seealso [get_sample_input()], [get_default_input()]
 #' @export
-model_run <- function(model_input = NULL, plot = FALSE) {
+model_run <- function(model_input = NULL, plot = TRUE) {
   if (is.null(model_input)) {
     model_input <- get_default_input()
   }
@@ -104,7 +104,11 @@ model_run <- function(model_input = NULL, plot = FALSE) {
   # alternative to fev1).
   unknown <- setdiff(input_names, c(names(predictors), "fev1pp"))
   if (length(unknown) > 0) {
-    stop("Unknown input variable(s): ", paste(unknown, collapse = ", "), call. = FALSE)
+    stop(
+      "Unknown input variable(s): ",
+      paste(unknown, collapse = ", "),
+      call. = FALSE
+    )
   }
 
   # The risk-distribution figure is only well-defined for a single patient (the
@@ -114,7 +118,9 @@ model_run <- function(model_input = NULL, plot = FALSE) {
   if (plot && length(patients) > 1) {
     warning(
       "plot = TRUE is only supported for a single patient; ",
-      "skipping the figure for this ", length(patients), "-patient batch.",
+      "skipping the figure for this ",
+      length(patients),
+      "-patient batch.",
       call. = FALSE
     )
     draw_plot <- FALSE
@@ -123,7 +129,8 @@ model_run <- function(model_input = NULL, plot = FALSE) {
   # One row of all-NA output, used when a patient fails so the batch keeps its
   # shape and row alignment.
   na_row <- function() {
-    out <- as.data.frame(as.list(setNames(rep(NA_real_, 5), paste("Year", 1:5))),
+    out <- as.data.frame(
+      as.list(setNames(rep(NA_real_, 5), paste("Year", 1:5))),
       check.names = FALSE
     )
     out$lin <- NA_real_
@@ -143,7 +150,11 @@ model_run <- function(model_input = NULL, plot = FALSE) {
         out
       },
       error = function(e) {
-        errors[[length(errors) + 1]] <<- sprintf("row %d: %s", i, conditionMessage(e))
+        errors[[length(errors) + 1]] <<- sprintf(
+          "row %d: %s",
+          i,
+          conditionMessage(e)
+        )
         na_row()
       }
     )
@@ -153,7 +164,9 @@ model_run <- function(model_input = NULL, plot = FALSE) {
     warning(
       sprintf(
         "%d of %d patient(s) failed and were returned as NA:\n%s",
-        length(errors), length(patients), paste(errors, collapse = "\n")
+        length(errors),
+        length(patients),
+        paste(errors, collapse = "\n")
       ),
       call. = FALSE
     )

@@ -4,7 +4,7 @@
 \alias{model_run}
 \title{Run the PRECISE-X Model}
 \usage{
-model_run(model_input = NULL, plot = FALSE)
+model_run(model_input = NULL, plot = TRUE)
 }
 \arguments{
 \item{model_input}{Either a named list (a single patient) or a data frame
