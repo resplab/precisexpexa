@@ -81,15 +81,6 @@ img <- get_plots(result, id = 1)
 plot(img)                     # render it
 ```
 
-### Running asynchronously
-
-For long batches you can submit the job and poll for the result:
-
-```r
-job    <- model_run(input, async = TRUE)
-result <- get_async_results(job)
-```
-
 ## Imputation matrix
 
 `inst/extdata/regression_matrix.RDS` holds the coefficients used to impute
