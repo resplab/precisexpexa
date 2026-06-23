@@ -9,7 +9,7 @@
 
 library(modelscloud)
 
-model_path <- "mohsenss/precisexpexa"
+model_path <- "resplab/precisexpexa"
 access_key <- Sys.getenv("MODELSCLOUD_ACCESS_KEY", unset = "YOUR_API_KEY")
 
 connect_to_model(model_path = model_path, access_key = access_key)
